@@ -4,13 +4,13 @@ import java.awt.*;
  * Tracks the score of the user and displays on the screen
  */
 public class Score {
-    int value;
+    private int value;
 
-    double x;
-    double y;
-    int fontSize;
-    Color colour;
-    boolean showBorder;
+    private double x;
+    private double y;
+    private int fontSize;
+    private Color colour;
+    private boolean showBorder;
 
     /**
      * Initialize the score at 0 with default
@@ -51,11 +51,59 @@ public class Score {
      * @param showBorder Display a border if true
      */
     public Score(int value, double x, double y, int fontSize, Color colour, boolean showBorder){
+        this.setValue(value);
+        this.setX(x);
+        this.setY(y);
+        this.setFontSize(fontSize);
+        this.setColour(colour);
+        this.setShowBorder(showBorder);
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
         this.value = value;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
         this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
         this.y = y;
+    }
+
+    public int getFontSize() {
+        return fontSize;
+    }
+
+    public void setFontSize(int fontSize) {
         this.fontSize = fontSize;
+    }
+
+    public Color getColour() {
+        return colour;
+    }
+
+    public void setColour(Color colour) {
         this.colour = colour;
+    }
+
+    public boolean isShowBorder() {
+        return showBorder;
+    }
+
+    public void setShowBorder(boolean showBorder) {
         this.showBorder = showBorder;
     }
 }
