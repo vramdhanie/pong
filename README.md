@@ -1,4 +1,4 @@
- Pong
+# Pong
 A simple implementation of the Pong game for students of CIS220
 
 ## Step 1
