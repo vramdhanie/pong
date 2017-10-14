@@ -106,4 +106,9 @@ public class Score {
     public void setShowBorder(boolean showBorder) {
         this.showBorder = showBorder;
     }
+
+    public String toString(){
+        return String.format("The current score is %d", getValue());
+    }
+
 }
