@@ -1,5 +1,6 @@
 # Pong
-A simple implementation of the Pong game for students of CIS220
+A simple implementation of the Pong game for students of CIS220.
+
 
 ## Step 1
 Design some objects that may be necessary for the Game.
