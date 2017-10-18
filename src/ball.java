@@ -10,10 +10,10 @@ public class ball {
 
     // constructor
     public ball() {
-        rx = 0.0;
-        ry = 0.0;
-        vx =  0.0;
-        vy =  0.0;
+        rx = 1.0;
+        ry = 1.0;
+        vx =  1.0;
+        vy =  1.0;
         radius = 1.0;
     }
 }
