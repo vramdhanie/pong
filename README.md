@@ -15,9 +15,10 @@ Example, the Ball object.
  - speed/distance: double // the number of pixels to move in 1/60 seconds
  - direction: double // the angle of the movement
  - colour: java.awt.Color
- - 
+ 
+### Methods
+  - move
+  - detectBoundaries
  
 ### RandomBounceBall
 Let the ball bounce in a random direction
-
-
