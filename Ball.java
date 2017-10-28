@@ -1,6 +1,3 @@
-package tt.edu.sbcs.pong;
-
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
@@ -32,9 +29,16 @@ public class Ball {
         this.setColour(colour);
     }
 
-
     public void move(){
         //logic for moving
+        double xp = getSpeed() * Math.cos(Math.toRadians(getDirection())) + getX();
+        double yp = getSpeed() * Math.sin(Math.toRadians(getDirection())) + getY();
+        setX(xp);
+        setY(yp);
+    }
+
+    public String toString(){
+        return String.format("(%.2f, %.2f)", getX(), getY());
     }
 
     //bounce ball on boundaries
