@@ -1,105 +1,67 @@
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.Ellipse2D;
 
 public class Ball {
 
-    private double x;
-    private double y;
-    private double width;
-    private double height;
-    private double speed;
-    private double direction;
-    private Color colour;
+    double x;
+    double y;
+    double size;
+    double dx;
+    double dy;
+    Color colour;
+    Shape shape;
 
-    public Ball() {
-        this(0, 0, 10, 10);
+    public Ball(){
+        this(300, 200, 10, 3, 4, Color.RED);
     }
+    public Ball(double x, double y, double size, double dx, double dy, Color colour){
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.dx = dx;
+        this.dy = dy;
+        this.colour = colour;
 
-    public Ball(double x, double y, double width, double height) {
-        this(x, y, width, height, 2, 0, Color.BLACK);
-    }
-
-    public Ball(double x, double y, double width, double height, double speed, double direction, Color colour) {
-        this.setX(x);
-        this.setY(y);
-        this.setWidth(width);
-        this.setHeight(height);
-        this.setSpeed(speed);
-        this.setDirection(direction);
-        this.setColour(colour);
+        shape = new Ellipse2D.Double(0, 0, size, size);
+        Thread t = new Thread(new Mover());
+        t.start();
     }
 
     public void move(){
-        //logic for moving
-        double xp = getSpeed() * Math.cos(Math.toRadians(getDirection())) + getX();
-        double yp = getSpeed() * Math.sin(Math.toRadians(getDirection())) + getY();
-        setX(xp);
-        setY(yp);
+        this.x += this.dx;
+        this.y += this.dy;
+        if(this.x <=0 || this.x >= (DrawingPanel.SCREEN_WIDTH - this.size)){
+            this.dx *= -1;
+        }
+        if(this.y <= 0 || this.y >= (DrawingPanel.SCREEN_HEIGHT - this.size)){
+            this.dy *= -1;
+        }
     }
 
-    public String toString(){
-        return String.format("(%.2f, %.2f)", getX(), getY());
+    public void draw(Graphics2D g){
+        Color originalColour = g.getColor();
+        g.translate(x, y);
+        g.setColor(this.colour);
+        g.fill(shape);
+        g.translate(-x, -y);
+        g.setColor(originalColour);
     }
 
-    //bounce ball on boundaries
-    public void detectBoundaries(Rectangle2D boundary){
-
+    public boolean hit(double xp, double yp){
+        return shape.contains(xp - x, yp - y);
     }
 
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    public double getDirection() {
-        return direction;
-    }
-
-    public void setDirection(double direction) {
-        this.direction = direction;
-    }
-
-    public Color getColour() {
-        return colour;
-    }
-
-    public void setColour(Color colour) {
-        this.colour = colour;
+    class Mover implements Runnable{
+        static final long REFRESH_RATE = 1000/60;
+        public void run(){
+            while(true){
+                move();
+                try {
+                    Thread.sleep(REFRESH_RATE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
