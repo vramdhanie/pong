@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 public class Ball {
 
@@ -22,7 +23,7 @@ public class Ball {
         this.dy = dy;
         this.colour = colour;
 
-        shape = new Ellipse2D.Double(0, 0, size, size);
+        shape = new Ellipse2D.Double(x, y, size, size);
         Thread t = new Thread(new Mover());
         t.start();
     }
@@ -30,6 +31,7 @@ public class Ball {
     public void move(){
         this.x += this.dx;
         this.y += this.dy;
+        shape = new Ellipse2D.Double(x, y, size, size);
         if(this.x <=0 || this.x >= (DrawingPanel.SCREEN_WIDTH - this.size)){
             this.dx *= -1;
         }
@@ -38,12 +40,26 @@ public class Ball {
         }
     }
 
+    /**
+     * @return the rectangle that bounds this ball
+     * @
+     */
+    public Rectangle2D getBounds(){
+        return this.shape.getBounds2D();
+    }
+
+    public void collide(Rectangle2D rectangle){
+        if(this.shape.intersects(rectangle)){
+           this.dy *= -1;
+        }
+    }
+
     public void draw(Graphics2D g){
         Color originalColour = g.getColor();
-        g.translate(x, y);
+       // g.translate(x, y);
         g.setColor(this.colour);
         g.fill(shape);
-        g.translate(-x, -y);
+      //  g.translate(-x, -y);
         g.setColor(originalColour);
     }
 
