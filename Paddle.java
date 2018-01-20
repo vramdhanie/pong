@@ -6,7 +6,7 @@ import java.awt.geom.Rectangle2D;
 
 public class Paddle {
 
-    public static final int PADDLE_SPEED = 10;
+    public static final int PADDLE_SPEED = 15;
     public static final int PADDLE_WIDTH = 40;
 
     double x;
@@ -21,7 +21,7 @@ public class Paddle {
         this.y = y;
         this.width = width;
 
-        shape = new Rectangle2D.Double(0, 0, width, 5);
+        shape = new Rectangle2D.Double(x, y, width, 5);
     }
 
     public void draw(Graphics2D g){
@@ -30,13 +30,13 @@ public class Paddle {
         AffineTransform af = new AffineTransform();
         af.translate(x, y);
 
-        g.transform(af);
+        //g.transform(af);
         g.fill(shape);
-        try {
-            g.transform(af.createInverse());
-        } catch (NoninvertibleTransformException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            g.transform(af.createInverse());
+//        } catch (NoninvertibleTransformException e) {
+//            e.printStackTrace();
+//        }
         g.setColor(originalColor);
     }
 
@@ -49,6 +49,11 @@ public class Paddle {
         if(x > DrawingPanel.SCREEN_WIDTH - width){
             x = DrawingPanel.SCREEN_WIDTH - width;
         }
-    }
 
+        shape = new Rectangle2D.Double(x, y, width, 5);
+    }
+    
+    public Rectangle2D getBounds(){
+        return this.shape.getBounds2D();
+    }
 }
