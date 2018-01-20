@@ -13,6 +13,8 @@ public class DrawingPanel extends JPanel{
 
     Ball ball;
     Paddle paddle;
+    Diamond diamond;
+    Logo logo;
 
     public DrawingPanel(){
         super();
@@ -33,6 +35,9 @@ public class DrawingPanel extends JPanel{
                 }
             }
         });
+
+        diamond = new Diamond(175, 20);
+        logo = new Logo(150, 100);
     }
 
     @Override
@@ -42,6 +47,8 @@ public class DrawingPanel extends JPanel{
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         ball.draw(g2);
         paddle.draw(g2);
+        diamond.draw(g2);
+        logo.draw(g2);
     }
 
     class Repainter implements Runnable{
@@ -53,10 +60,10 @@ public class DrawingPanel extends JPanel{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                ball.collide(paddle.getBounds());
                 repaint();
             }
         }
     }
-
 
 }
